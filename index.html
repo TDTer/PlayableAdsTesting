@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Trò Chơi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .choice-link {
+            text-decoration: none;
+            /* Bỏ gạch chân cho link */
+            color: inherit;
+            /* Giữ màu chữ mặc định */
+        }
+
+        .game-choice {
+            border: 2px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .game-choice:hover {
+            transform: translateY(-5px);
+            /* Hiệu ứng nâng nhẹ khi rê chuột */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: #007bff;
+            /* Thay đổi màu viền khi hover */
+        }
+
+        .game-image {
+            width: 200px;
+            /* Điều chỉnh kích thước hình ảnh */
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .caption {
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Chọn màu nền Background</h1>
+
+    <div class="image-container">
+        <a href="ScrewGame1.html" class="choice-link">
+            <div class="game-choice">
+                <img src="hinh1.jpg" alt="Phiên bản 1" class="game-image">
+                <div class="caption">Nền Vàng</div>
+            </div>
+        </a>
+
+        <a href="ScrewGame2.html" class="choice-link">
+            <div class="game-choice">
+                <img src="hinh2.jpg" alt="Phiên bản 2" class="game-image">
+                <div class="caption">Nền Hồng</div>
+            </div>
+        </a>
+    </div>
+
+</body>
+
+</html>
