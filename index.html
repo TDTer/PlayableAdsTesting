@@ -4,88 +4,239 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trang chính</title>
+  <title>Playable Ads Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --text-color: #ffffff;
+      --card-bg: rgba(255, 255, 255, 0.1);
+      --card-hover-bg: rgba(255, 255, 255, 0.2);
+    }
+
     body {
-      font-family: system-ui, Arial, sans-serif;
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      background: #f6f8fa;
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      overflow-x: hidden;
     }
 
-    .container {
-      display: flex;
-      gap: 16px;
+    .background-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
     }
 
-    button {
-      padding: 12px 18px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      background: #fff;
-      cursor: pointer;
+    .shape {
+      position: absolute;
+      filter: blur(80px);
+      opacity: 0.5;
+      animation: float 10s infinite ease-in-out;
+      border-radius: 50%;
     }
 
-    button:hover {
-      background: #f0f0f0;
+    .shape:nth-child(1) {
+      top: -10%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: #ff6b6b;
+      animation-delay: 0s;
     }
 
-    .btn-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+    .shape:nth-child(2) {
+      bottom: -10%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: #4ecdc4;
+      animation-delay: -5s;
     }
 
-    .desc {
-      font-size: 14px;
-      color: #555;
-      max-width: 320px;
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(30px, 30px);
+      }
+    }
+
+    .main-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
       text-align: center;
     }
 
-    @media (max-width: 680px) {
-      .container {
-        flex-direction: column;
+    h1 {
+      margin-bottom: 40px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 2rem;
+      background: linear-gradient(to right, #fff, #e0e0e0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 30px 20px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: var(--card-hover-bg);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon-wrapper {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+
+    .icon-wrapper img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .card:hover .icon-wrapper {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .main-container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="btn-group">
-      <button id="btn1" title="Mở Tiny17_BrainAge">
-        Mở Gacha Rumi
-      </button>
-      <div class="desc"></div>
-    </div>
-    <div class="btn-group">
-      <button id="btn2" title="Mở TungTung">
-        Mở Gacha TungTung
-      </button>
-      <div class="desc"></div>
-    </div>
-    <!-- <div class="btn-group">
-      <button id="btn3" title="Mở Tiny17_Purple">Mở Tiny17_Purple</button>
-      <div class="desc">💜🟪👾🟣</div>
-    </div> -->
+  <div class="background-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
   </div>
-  <script>
-    document.getElementById("btn1").addEventListener("click", function () {
-      window.location.href = "Gacha_Rumi.html";
-    });
-    document.getElementById("btn2").addEventListener("click", function () {
-      window.location.href = "Gacha_TungTung.html";
-    });
-    document.getElementById("btn3").addEventListener("click", function () {
-      window.location.href = "Tiny17_Purple.html";
-    });
-  </script>
+
+  <div class="main-container">
+    <h1>Playable Ads Showcase</h1>
+
+    <div class="cards-grid">
+      <a href="Gacha_Rumi.html" class="card">
+        <div class="icon-wrapper">
+          <img
+            src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2da86174-044b-4355-b01a-f7e55be1daf7/dkpkedq-a4e5ee81-9fba-474a-afc1-c778acd0ad9b.png/v1/fit/w_828,h_1428/k_pop_demon_hunters_rumi_render_png_by_frxnmntti_dkpkedq-414w-2x.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MjIwNyIsInBhdGgiOiIvZi8yZGE4NjE3NC0wNDRiLTQzNTUtYjAxYS1mN2U1NWJlMWRhZjcvZGtwa2VkcS1hNGU1ZWU4MS05ZmJhLTQ3NGEtYWZjMS1jNzc4YWNkMGFkOWIucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.W5ZmyUv2p5BKkCu0HRHjZKk0OZ0_Uvk8TR8Rxqq3liw"
+            alt="Rumi Icon">
+        </div>
+        <div class="card-title">Gacha Rumi</div>
+        <div class="card-desc">Mở Playable Ads Gacha Rumi</div>
+      </a>
+
+      <a href="Gacha_TungTung.html" class="card">
+        <div class="icon-wrapper">
+          <img
+            src="https://static.wikia.nocookie.net/character-stats-and-profiles/images/5/52/Sahur2.webp/revision/latest?cb=20250510085254"
+            alt="TungTung Icon">
+        </div>
+        <div class="card-title">Gacha TungTung</div>
+        <div class="card-desc">Mở Playable Ads Gacha TungTung</div>
+      </a>
+
+      <a href="Livestream_RumixTungtung.html" class="card">
+        <div class="icon-wrapper">
+          <img src="https://img.icons8.com/fluency/96/video-call.png" alt="Livestream Icon">
+        </div>
+        <div class="card-title">Livestream</div>
+        <div class="card-desc">Mở Playable Ads Livestream RumixTungtung</div>
+      </a>
+    </div>
+  </div>
 </body>
 
 </html>
